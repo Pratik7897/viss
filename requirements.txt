@@ -1,0 +1,14 @@
+# Visual Impairment Support System (VISS)
+# Development dependencies for macOS (MacBook Air M2 / Python 3.12)
+
+numpy>=1.26.0
+opencv-python>=4.8.0,<5.0.0
+pyttsx3>=2.90
+pytest>=7.0.0
+
+# Raspberry Pi deployment only (installed via requirements-pi.txt / APT on Pi):
+# gpiozero
+# picamera2
+# pyserial
+# alsa-utils
+# espeak-ng

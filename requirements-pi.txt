@@ -1,0 +1,53 @@
+# Visual Impairment Support System (VISS)
+# Production Raspberry Pi 4 (Raspberry Pi OS Bookworm 64-bit) Deployment Dependencies
+#
+# NOTE: Hardware installation and ARM64 runtime compatibility have NOT yet been
+# verified on physical hardware. These requirements reflect target platform specifications.
+
+# ==============================================================================
+# SECTION 1: SYSTEM PACKAGES (Raspberry Pi OS / Debian Bookworm)
+# ==============================================================================
+# On Raspberry Pi OS Bookworm (Debian 12), system libraries and hardware interfaces
+# should be installed via APT to ensure proper device bindings and libcamera support:
+#
+#   sudo apt update && sudo apt install -y \
+#       python3-opencv \
+#       python3-picamera2 \
+#       python3-gpiozero \
+#       python3-lgpio \
+#       python3-serial \
+#       python3-numpy \
+#       alsa-utils \
+#       espeak-ng
+#
+# Explanation of system packages:
+# - python3-opencv: Pre-built OpenCV with NEON SIMD optimizations for ARM64.
+# - python3-picamera2: Native camera interface for Pi Camera V2 (requires libcamera).
+# - python3-gpiozero & python3-lgpio: GPIO control for HC-SR04, buzzer, and button.
+# - python3-serial: Serial communication (UART /dev/ttyS0 or /dev/ttyAMA0) for SIM800L.
+# - python3-numpy: Array math for frame buffers and sensor data.
+# - alsa-utils: System audio utility providing 'aplay' for audio alert playback.
+# - espeak-ng: Offline speech synthesizer backend required by pyttsx3 for voice announcements.
+
+# ==============================================================================
+# SECTION 2: PYTHON VIRTUAL ENVIRONMENT PACKAGES (pip)
+# ==============================================================================
+# When running inside a Python virtual environment on Raspberry Pi OS,
+# create the environment with access to system site packages:
+#
+#   python3 -m venv --system-site-packages venv
+#   source venv/bin/activate
+#   pip install -r requirements-pi.txt
+#
+# If system packages above are NOT used, the following pip packages are required:
+
+pyserial>=3.5
+numpy>=1.24.0
+pyttsx3>=2.90
+
+# Optional headless OpenCV fallback if python3-opencv is not installed via APT:
+# opencv-python-headless>=4.8.0
+
+# NOTE: Do NOT install macOS-specific packages (e.g. pytest-watch) on Raspberry Pi.
+# NOTE: picamera2 and gpiozero are best installed via APT (python3-picamera2, python3-gpiozero)
+#       because pip wheels lack necessary C++ shared libraries (libcamera, libgpiod).

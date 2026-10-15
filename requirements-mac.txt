@@ -1,0 +1,12 @@
+# Visual Impairment Support System (VISS)
+# macOS Development Dependencies (Tested on macOS Apple Silicon / Python 3.12)
+#
+# Create and activate local virtual environment:
+#   python3.12 -m venv venv
+#   source venv/bin/activate
+#   pip install -r requirements-mac.txt
+
+numpy>=1.26.0
+opencv-python>=4.8.0,<5.0.0
+pyttsx3>=2.90
+pytest>=7.0.0
